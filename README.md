@@ -18,7 +18,7 @@ Py-SikuliX 是一个 Python 客户端库，通过 Py4J 与 SikuliX Java 后端�
 
 ## 环境要求
 
-- **Python**: 3.9+
+- **Python**: 3.10+
 - **Java**: JDK 8+ (需设置 JAVA_HOME 环境变量)
 - **SikuliX**: 测试环境使用 sikulixide-2.0.5 版本（项目根目录需放置 sikulixide-2.0.5.jar，或手动设置ide路径）
 
@@ -54,10 +54,25 @@ pip install -e ".[dev]"
 
 ### 2. 启动 Java 网关
 
+> ⚠️ **重要**: 在使用任何 py-sikulix 功能之前，必须先启动 Java 网关
+
 **方式一：使用命令行工具**
 
 ```bash
+# 启动网关（默认端口 25333）
 python -m py_sikulix.gateway start
+
+# 测试连接
+python -m py_sikulix.gateway test
+
+# 查看网关状态
+python -m py_sikulix.gateway status
+
+# 停止网关
+python -m py_sikulix.gateway stop
+
+# 或者使用编译好的
+sikulix-gateway stop
 ```
 
 **方式二：使用 Python 脚本**
@@ -72,18 +87,19 @@ launcher.start()
 ### 3. 基本使用示例
 
 ```python
-from py_sikulix import Screen, Pattern, Key
+from py_sikulix import Screen, Pattern, Key, reg_exit_listener
+import time
 
 def main():
     # 获取主屏幕
     screen = Screen()
-    
+
     # 查找图像
     try:
         # 查找图像并点击
         if match := screen.find("button.png"):
             match.click()
-            
+
         # 输入文本
         screen.type("Hello, World!")
         screen.type(Key.ENTER)
@@ -92,9 +108,15 @@ def main():
         screen.key_down(Key.WIN)
         screen.type("r")    # 注意这里必须使用小写字母才能触发组合键
         screen.key_up(Key.WIN)
-        
+
     except Exception as e:
         print(f"错误: {e}")
+
+    reg_exit_listener() # 如果程序需要长期运行，请务注册全局退出监听快捷键
+    while True:
+        # do something
+        print('正在运行...')
+        time.sleep(3)
 
 if __name__ == "__main__":
     main()
@@ -258,25 +280,24 @@ ruff format src/
 py-sikulix/
 ├── src/py_sikulix/
 │   ├── __init__.py         # 包导出
-│   ├── client.py           # 客户端管理，全局 CLIENT 单例
-│   ├── base_region.py      # 区域基类，Region/Match 共用
-│   ├── region.py           # Region、Screen 类
+│   ├── client.py           # 客户端管理，SikuliXClient 类
+│   ├── region.py           # Region、Screen、Match 类
 │   ├── screen.py           # 屏幕类
-│   ├── match.py            # Match 类
 │   ├── pattern.py          # Pattern 类
 │   ├── app.py              # App 类
 │   ├── location.py         # Location 类
 │   ├── settings.py         # Settings 配置类
 │   ├── keys.py             # Key、Btn 常量
 │   ├── gateway.py          # Java 网关启动器
-│   └── exceptions.py       # 异常类
+│   └── extend/             # 扩展功能
+│       └── finder.py       # 图像查找扩展
 ├── tests/
 │   ├── conftest.py         # Pytest fixtures
 │   ├── test_region.py
 │   ├── test_pattern.py
 │   └── test_location.py
 ├── examples/               # 示例图像
-├── sikulixide-2.0.5.2103.jar  # SikuliX IDE (需自行下载)
+├── sikulixide-2.0.5.jar  # SikuliX IDE (需自行下载)
 ├── pyproject.toml          # 项目配置
 └── README.md
 ```
@@ -289,6 +310,13 @@ py-sikulix/
 ## 版本历史
 
 ### v0.1.0 (2024-02-24)
+
+- 初始版本
+- 基本的屏幕操作和图像识别
+- 鼠标、键盘、应用程序控制
+- 区域管理和配置系统
+
+### v0.1.1 (2026-02-28)
 
 - 初始版本
 - 基本的屏幕操作和图像识别

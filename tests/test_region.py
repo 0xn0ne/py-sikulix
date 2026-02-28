@@ -240,6 +240,7 @@ class TestRegionLocation:
         region.set_rect(*original_bounds)
 
 
+@pytest.mark.interactive
 class TestRegionMouse:
     """区域鼠标操作测试"""
 
@@ -308,6 +309,7 @@ class TestRegionMouse:
         assert isinstance(result, int)
 
 
+@pytest.mark.interactive
 class TestRegionKeyboard:
     """区域键盘操作测试"""
 
@@ -342,7 +344,7 @@ class TestRegionFind:
     def test_exists_nonexistent(self, region):
         """测试查找不存在的图像"""
         # 查找不存在的图像应该返回 None
-        result = region.exists('nonexistent_image.png', timeout=1)
+        result = region.exists('nonexistent_image.png')
 
         # 可能返回 None（未找到）或抛出异常
         assert result is None or isinstance(result, Match)
@@ -356,7 +358,7 @@ class TestRegionFind:
 
     def test_wait_vanish_timeout(self, region):
         """测试等待消失超时"""
-        result = region.wait_vanish('nonexistent_image.png', timeout=1)
+        result = region.wait_vanish('examples/VscodeSideBar.png', timeout=1)
 
         # 超时应该返回 False
         assert result is False

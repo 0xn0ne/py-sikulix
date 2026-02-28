@@ -4,7 +4,7 @@ from typing import Optional, Union
 
 from py4j.java_gateway import JavaObject
 
-from py_sikulix.client import CLIENT
+from py_sikulix.client import get_cli
 from py_sikulix.region import Region
 
 logger = logging.getLogger(__name__)
@@ -24,7 +24,7 @@ class Screen(Region):
             screenid_or_java_obj: 屏幕编号或Java对象实例
         """
         if isinstance(screenid_or_java_obj, int):
-            screenid_or_java_obj = CLIENT.Screen(screenid_or_java_obj)  # type: ignore
+            screenid_or_java_obj = get_cli().Screen(screenid_or_java_obj)  # type: ignore
 
         if not isinstance(screenid_or_java_obj, JavaObject):
             raise ValueError(
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     # 示例9: exists() - 检查图像是否存在
     print('\n--- 示例9: exists() - 检查图像是否存在 ---')
 
-    match = screen.exists(image_path, 2)
+    match = screen.exists(image_path)
     if match:
         print(f'图像存在! 位置: ({match.x}, {match.y})')
     else:

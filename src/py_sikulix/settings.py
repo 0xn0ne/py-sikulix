@@ -6,7 +6,7 @@ SikuliX Setting 类封装
 
 import logging
 
-from py_sikulix.client import CLIENT
+from py_sikulix.client import get_cli
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ class Setting:
         """
         初始化 Setting 对象。
         """
-        self._raw = CLIENT.Setting  # type: ignore
+        self._raw = get_cli().Settings  # type: ignore
         self._throw_exception = False
 
     @property

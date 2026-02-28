@@ -12,23 +12,22 @@ Py-SikuliX: Python 客户端库，用于 SikuliX GUI 自动化。
         match.click()
 """
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 from py_sikulix.app import App
-from py_sikulix.client import SikuliXClient
+from py_sikulix.client import reg_exit_listener
 from py_sikulix.keys import Btn, Key
 from py_sikulix.location import Location
-from py_sikulix.match import Match
 from py_sikulix.pattern import Pattern
-from py_sikulix.region import Region
+from py_sikulix.region import Match, Region
 from py_sikulix.screen import Screen
 from py_sikulix.settings import Setting
 
 # 公共 API
 __all__ = [
     '__version__',
-    # 核心客户端
-    'SikuliXClient',
+    # 客户端工具
+    'reg_exit_listener',
     # 区域
     'Region',
     'Screen',

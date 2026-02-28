@@ -7,7 +7,7 @@ from typing import Optional, Union
 
 from py4j.java_gateway import JavaObject
 
-from py_sikulix.client import CLIENT
+from py_sikulix.client import get_cli
 
 
 class Location:
@@ -22,7 +22,7 @@ class Location:
             y: Y 轴坐标
         """
         if isinstance(x_or_java_obj, int) and isinstance(y, int):
-            x_or_java_obj = CLIENT.Location(x_or_java_obj, y)  # type: ignore
+            x_or_java_obj = get_cli().Location(x_or_java_obj, y)  # type: ignore
         if not isinstance(x_or_java_obj, JavaObject):
             raise ValueError(
                 'please pass in the correct types of x, y parameters. do not directly pass in JavaObject to create the Class.'

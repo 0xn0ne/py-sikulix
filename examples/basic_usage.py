@@ -16,7 +16,7 @@ Py-SikuliX 基础使用示例
 import pathlib
 import time
 
-from py_sikulix import App, Key, Location, Pattern, Region, Screen, Setting
+from py_sikulix import App, Key, Location, Pattern, Region, Screen, Setting, reg_exit_listener
 
 
 def print_section(title):
@@ -272,6 +272,7 @@ def main():
     print_section('Py-SikuliX 基础使用示例')
 
     try:
+        reg_exit_listener()
         # 配置设置
         Setting.min_similarity = 0.8
 

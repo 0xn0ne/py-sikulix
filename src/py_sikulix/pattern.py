@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 from py4j.java_gateway import JavaObject
 
-from py_sikulix.client import CLIENT
+from py_sikulix.client import get_cli
 from py_sikulix.location import Location
 
 
@@ -23,7 +23,7 @@ class Pattern:
             path_or_java_obj = pathlib.Path(path_or_java_obj)
             if not path_or_java_obj.exists():
                 raise FileNotFoundError(f'file {path_or_java_obj} does not exist')
-        path_or_java_obj = CLIENT.Pattern(str(path_or_java_obj.absolute()))  # type: ignore
+        path_or_java_obj = get_cli().Pattern(str(path_or_java_obj.absolute()))  # type: ignore
         if not isinstance(path_or_java_obj, JavaObject):
             raise ValueError(
                 'please pass in the correct types of path parameter. do not directly pass in JavaObject to create the Class.'

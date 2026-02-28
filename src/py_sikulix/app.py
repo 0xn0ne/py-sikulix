@@ -7,7 +7,7 @@ from typing import Optional, Union
 
 from py4j.java_gateway import JavaObject
 
-from py_sikulix.client import CLIENT
+from py_sikulix.client import get_cli
 from py_sikulix.region import Region
 
 
@@ -22,7 +22,7 @@ class App:
             name: 应用程序名称（不区分大小写）或可执行文件的路径
         """
         if isinstance(name_or_java_obj, (str, pathlib.Path)):
-            name_or_java_obj = CLIENT.App(str(pathlib.Path(name_or_java_obj).absolute()))  # type: ignore
+            name_or_java_obj = get_cli().App(str(pathlib.Path(name_or_java_obj).absolute()))  # type: ignore
         if not isinstance(name_or_java_obj, JavaObject):
             raise ValueError(
                 'please pass in the correct types of name parameter. do not directly pass in JavaObject to create the Class.'

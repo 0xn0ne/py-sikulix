@@ -4,6 +4,8 @@
 [![Python](https://img.shields.io/pypi/pyversions/py-sikulix.svg)](https://pypi.org/project/py-sikulix/)
 [![License](https://img.shields.io/pypi/l/py-sikulix.svg)](https://github.com/0xn0ne/py-sikulix/blob/main/LICENSE)
 
+[简体中文](./README.md) | English
+
 Py-SikuliX is a Python client library that interacts with the SikuliX Java backend via Py4J, providing powerful GUI automation and image recognition capabilities.
 
 ## Features
@@ -18,7 +20,7 @@ Py-SikuliX is a Python client library that interacts with the SikuliX Java backe
 
 ## Environment Requirements
 
-- **Python**: 3.9+
+- **Python**: 3.10+
 - **Java**: JDK 8+ (Requires setting JAVA_HOME environment variable)
 - **SikuliX**: Test environment uses sikulixide-2.0.5 (Place sikulixide-2.0.5.jar in project root directory or manually set IDE path)
 

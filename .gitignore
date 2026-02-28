@@ -138,6 +138,8 @@ dmypy.json
 cython_debug/
 
 # other
+.ruff_cache*
+.sisyphus*
 *.jar
 *.png
 *.sikuli
